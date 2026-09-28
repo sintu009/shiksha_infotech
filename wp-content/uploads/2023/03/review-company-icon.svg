@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Company">
+  <circle cx="32" cy="32" r="32" fill="#242627"/>
+  <path d="M18 46V22l12-6v8l10-5v27H18z" fill="#ffffff"/>
+  <rect x="22" y="27" width="4" height="4" fill="#242627"/>
+  <rect x="22" y="34" width="4" height="4" fill="#242627"/>
+  <rect x="22" y="41" width="4" height="4" fill="#242627"/>
+  <rect x="34" y="30" width="4" height="4" fill="#242627"/>
+  <rect x="34" y="37" width="4" height="4" fill="#242627"/>
+</svg>
