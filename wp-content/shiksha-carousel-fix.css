@@ -1,0 +1,274 @@
+/*
+ * Shiksha Infotech - Carousel layout support (works with shiksha-carousel-fix.js)
+ * Ensures the testimonial / image carousels render as a clean sliding row
+ * even though Swiper JS is not running in the static export.
+ */
+
+/* Positioning context for the side arrows */
+.elementor-swiper {
+	position: relative !important;
+}
+
+/* The track: horizontal flex row that the JS translates */
+.elementor-main-swiper.swiper {
+	position: relative !important;
+	overflow: hidden !important;
+	width: 100% !important;
+}
+
+.elementor-main-swiper.swiper > .swiper-wrapper {
+	display: flex !important;
+	flex-wrap: nowrap !important;
+	align-items: flex-start !important; /* slides fit their own content height */
+	width: 100% !important;
+	max-width: 100% !important;
+	height: auto !important;
+	transform: none; /* JS will drive the transform */
+}
+
+/* Slides sit side by side. Width is enforced here per breakpoint so it works
+ * even if the native Swiper set its own inline widths. */
+.elementor-main-swiper.swiper > .swiper-wrapper > .swiper-slide {
+	flex-shrink: 0 !important;
+	flex-grow: 0 !important;
+	height: auto !important;
+	box-sizing: border-box !important;
+	margin: 0 !important;
+	padding: 0 10px !important;
+}
+
+/* One review at a time on all screen sizes */
+.elementor-main-swiper.swiper > .swiper-wrapper > .swiper-slide {
+	flex: 0 0 100% !important;
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+/* Navigation arrows: visible circular buttons positioned at the sides */
+.elementor-swiper-button {
+	cursor: pointer !important;
+	z-index: 20 !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 46px !important;
+	height: 46px !important;
+	border-radius: 50% !important;
+	background: #ffffff !important;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
+	color: #010ED0 !important;
+	font-size: 18px !important;
+	position: absolute !important;
+	top: auto !important;
+	bottom: -60px !important;
+	transform: none !important;
+}
+
+/* Place the two arrows side by side, centered below the carousel */
+.elementor-swiper-button-prev {
+	left: calc(50% - 56px) !important;
+	right: auto !important;
+}
+
+.elementor-swiper-button-next {
+	left: calc(50% + 10px) !important;
+	right: auto !important;
+}
+
+/* Room below the carousel so the arrows don't overlap the next section */
+.elementor-swiper {
+	padding-bottom: 70px !important;
+}
+
+.elementor-swiper-button:hover {
+	background: #010ED0 !important;
+	color: #ffffff !important;
+}
+
+/* Hide Swiper lazy-load spinners (JS loads the images directly instead) */
+.swiper-lazy-preloader {
+	display: none !important;
+}
+
+/* Ensure lazy images are visible even before JS swaps data-src */
+.elementor-main-swiper.swiper img.swiper-lazy {
+	opacity: 1 !important;
+	visibility: visible !important;
+}
+
+/* Let each review size to its own content (kill reserved slide heights) */
+.elementor-main-swiper.swiper > .swiper-wrapper > .swiper-slide,
+.elementor-main-swiper.swiper .elementor-testimonial,
+.elementor-main-swiper.swiper .elementor-testimonial__content,
+.elementor-main-swiper.swiper .elementor-testimonial__text {
+	height: auto !important;
+	min-height: 0 !important;
+}
+
+/* The testimonial carousel widget itself should not reserve extra height */
+.elementor-widget-testimonial-carousel.vamtam-has-slide-height .elementor-main-swiper,
+.elementor-widget-testimonial-carousel .elementor-main-swiper {
+	height: auto !important;
+	min-height: 0 !important;
+}
+
+/* =========================================================
+ * FIX: Remove excessive height from the Reviews/Testimonial section
+ * The section was reserving too much vertical space
+ * ========================================================= */
+
+/* Target the testimonial section container - remove reserved heights */
+.elementor-element-47d9ab3,
+.elementor-section.elementor-element-47d9ab3 {
+	min-height: 0 !important;
+	height: auto !important;
+}
+
+/* Remove the vamtam-has-slide-height reserved height behavior */
+.vamtam-has-slide-height .elementor-main-swiper.swiper,
+.vamtam-has-slide-height .swiper-wrapper,
+.vamtam-has-slide-height .swiper-slide {
+	height: auto !important;
+	min-height: 0 !important;
+}
+
+/* Kill any fixed heights on the swiper containers */
+.elementor-widget-testimonial-carousel .elementor-swiper,
+.elementor-widget-testimonial-carousel .elementor-main-swiper,
+.elementor-widget-testimonial-carousel .swiper,
+.elementor-widget-testimonial-carousel .swiper-wrapper {
+	height: auto !important;
+	min-height: 0 !important;
+	max-height: none !important;
+}
+
+/* The column containing the testimonial carousel */
+.elementor-element-d076d0d {
+	min-height: 0 !important;
+	height: auto !important;
+}
+
+/* =========================================================
+ * Tighten vertical spacing inside review slides
+ * (nested Elementor sections add large default paddings / min-heights)
+ * ========================================================= */
+
+/* Kill min-heights on the nested section wrappers inside each review */
+.elementor-main-swiper.swiper .elementor-testimonial .elementor-section,
+.elementor-main-swiper.swiper .elementor-testimonial .elementor-top-section,
+.elementor-main-swiper.swiper .elementor-testimonial .elementor-container,
+.elementor-main-swiper.swiper .elementor-testimonial .elementor-column,
+.elementor-main-swiper.swiper .elementor-testimonial .elementor-widget-wrap {
+	min-height: 0 !important;
+	height: auto !important;
+}
+
+/* Trim big top/bottom padding on the nested review section + columns */
+.elementor-main-swiper.swiper .elementor-testimonial .elementor-section {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+.elementor-main-swiper.swiper .elementor-testimonial .elementor-widget-wrap {
+	padding: 0 !important;
+}
+
+/* Compact the testimonial content padding */
+.elementor-main-swiper.swiper .elementor-testimonial__content {
+	padding: 16px !important;
+}
+
+/* Reduce spacing between the stacked widgets (heading, text, etc.) */
+.elementor-main-swiper.swiper .elementor-testimonial .elementor-widget:not(:last-child) {
+	margin-bottom: 8px !important;
+}
+
+/* Remove empty spacer widgets that only add height */
+.elementor-main-swiper.swiper .elementor-testimonial .elementor-widget-spacer {
+	display: none !important;
+}
+
+/* =========================================================
+ * Additional fixes for nested content inside testimonials
+ * ========================================================= */
+
+/* The nested elementor templates inside testimonials have their own sections */
+.elementor-testimonial__text .elementor,
+.elementor-testimonial__text .elementor-section,
+.elementor-testimonial__text .elementor-container,
+.elementor-testimonial__text .elementor-column,
+.elementor-testimonial__text .elementor-widget-wrap {
+	min-height: 0 !important;
+	height: auto !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+/* Remove margin/padding from nested content */
+.elementor-testimonial__text .elementor-widget-wrap {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+/* Collapse the toggle "View more" sections by default */
+.elementor-testimonial .elementor-toggle .elementor-tab-content {
+	padding: 10px 0 !important;
+}
+
+/* Tighten the testimonial footer area */
+.elementor-testimonial__footer {
+	padding: 8px 0 0 0 !important;
+	margin: 0 !important;
+	min-height: 0 !important;
+}
+
+/* =========================================================
+ * REVIEW TEXT TRUNCATION - Show limited content with Read More
+ * ========================================================= */
+
+/* Default state: Limit height and hide overflow */
+.elementor-testimonial__text {
+	position: relative !important;
+	max-height: 90px !important;
+	overflow: hidden !important;
+	transition: max-height 0.4s ease-out !important;
+}
+
+/* Hide the existing toggle widget ("View more" with list) in collapsed state */
+.elementor-testimonial__text .elementor-widget-toggle,
+.elementor-testimonial__text .vamtam-toggle-service {
+	display: none !important;
+}
+
+/* When expanded, show full content */
+.elementor-testimonial__text.expanded {
+	max-height: 600px !important;
+	overflow: visible !important;
+}
+
+/* Show the toggle widget when expanded */
+.elementor-testimonial__text.expanded .elementor-widget-toggle,
+.elementor-testimonial__text.expanded .vamtam-toggle-service {
+	display: block !important;
+}
+
+/* Read More / Read Less button */
+.shiksha-read-more-btn {
+	display: block !important;
+	margin-top: 8px !important;
+	padding: 0 !important;
+	background: none !important;
+	border: none !important;
+	color: #010ED0 !important;
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	cursor: pointer !important;
+	text-align: left !important;
+	text-decoration: none !important;
+}
+
+.shiksha-read-more-btn:hover {
+	text-decoration: underline !important;
+}

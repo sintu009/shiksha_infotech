@@ -1,0 +1,108 @@
+/*
+ * Shiksha Infotech - Dropdown fallback for the static/exported site.
+ * Works together with shiksha-dropdown-fix.js.
+ * Scoped to horizontal desktop menus only; vertical footer/mobile menus
+ * are never touched.
+ */
+
+/* Ensure the nav containers never clip the dropdown */
+.elementor-nav-menu--layout-horizontal,
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu,
+.elementor-nav-menu--main.elementor-nav-menu__container {
+	overflow: visible !important;
+}
+
+/* Parent item = positioning context */
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children {
+	position: relative !important;
+}
+
+/* The dropdown panel, hidden by default and taken out of normal flow */
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children > ul.sub-menu {
+	position: absolute !important;
+	top: 100% !important;
+	left: 0 !important;
+	right: auto !important;
+	bottom: auto !important;
+	display: none !important; /* HIDDEN by default - prevents ghost hover */
+	width: max-content !important;
+	min-width: 230px !important;
+	max-width: 340px !important;
+	margin: 0 !important;
+	padding: 8px 0 !important;
+	list-style: none !important;
+	background: #ffffff !important;
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14) !important;
+	border-radius: 6px !important;
+	z-index: 99999 !important;
+
+	opacity: 0 !important;
+	visibility: hidden !important;
+	pointer-events: none !important;
+	transform: translateY(8px) !important;
+}
+
+/* Neutralize the theme's plain :hover reveal. Any header dropdown that is
+   hovered but does NOT have .shiksha-open must stay fully hidden, so hovering
+   the item (or its padding) alone never opens the panel. This mirrors how the
+   Solutions mega menu is gated. */
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children:not(.shiksha-mega):hover > ul.sub-menu,
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children:not(.shiksha-mega):not(.shiksha-open) > ul.sub-menu {
+	display: none !important;
+	opacity: 0 !important;
+	visibility: hidden !important;
+	pointer-events: none !important;
+	transform: translateY(8px) !important;
+}
+
+/* Shown ONLY when JS adds .shiksha-open (added on hovering the menu link),
+   matching the Solutions mega menu. This wins over the :hover neutralizer
+   above because .shiksha-open raises specificity/order. */
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children:not(.shiksha-mega).shiksha-open > ul.sub-menu,
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children:not(.shiksha-mega).shiksha-open:hover > ul.sub-menu {
+	display: block !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+	pointer-events: auto !important;
+	transform: translateY(0) !important;
+	transition: opacity 0.16s ease, transform 0.16s ease !important;
+}
+
+/* Invisible hover bridge so moving into the panel doesn't close it - ONLY when open */
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children.shiksha-open > ul.sub-menu::before {
+	content: "";
+	position: absolute;
+	top: -14px;
+	left: 0;
+	right: 0;
+	height: 14px;
+	background: transparent;
+}
+
+/* Remove hover bridge when not open */
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children:not(.shiksha-open) > ul.sub-menu::before {
+	display: none !important;
+}
+
+/* Dropdown list items */
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children > ul.sub-menu li {
+	display: block !important;
+	width: 100% !important;
+	float: none !important;
+	margin: 0 !important;
+}
+
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children > ul.sub-menu li a {
+	display: block !important;
+	flex-grow: 0 !important;
+	padding: 10px 20px !important;
+	white-space: nowrap !important;
+	line-height: 1.3 !important;
+	color: #242627 !important;
+	text-decoration: none !important;
+}
+
+.elementor-nav-menu--layout-horizontal ul.elementor-nav-menu > li.menu-item-has-children > ul.sub-menu li a:hover {
+	background-color: #f2f4f8 !important;
+	color: #010ED0 !important;
+}
